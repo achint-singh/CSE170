@@ -84,6 +84,7 @@ nav
 .context-division
 {
 	width:50%;
+  margin: auto;
 	display:flex;
 	    padding: 0 15px;
 }
@@ -129,12 +130,18 @@ nav
   align-content: center;
   align-self: center;
   text-align: center;
+  margin: auto;
 
+}
 
+.grid-container {
+  align-content: center;
+  margin: auto;
 }
 
 .grid-item {
   padding: 20px;
   font-size: 30px;
   text-align: center;
+  margin: auto;
 }
