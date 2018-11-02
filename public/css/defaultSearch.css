@@ -1,5 +1,23 @@
-@charset "UTF-8";
-/* CSS Document */
+select{
+  margin-bottom:20px;
+}
+
+.block {
+  display: inline-block;
+}
+.row {
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.grid-item {
+  font-size: 20px;
+  text-align: center;
+}
 
 body
 {
@@ -24,6 +42,11 @@ nav
 		text-decoration:none;
 	border-bottom:none;
 }
+
+#specificresult {
+	color: blue;
+}
+
 .navbar
 {
 	    background-color: #000;
@@ -84,7 +107,6 @@ nav
 .context-division
 {
 	width:50%;
-  margin: auto;
 	display:flex;
 	    padding: 0 15px;
 }
@@ -130,18 +152,13 @@ nav
   align-content: center;
   align-self: center;
   text-align: center;
-  margin: auto;
 
-}
 
-.grid-container {
-  align-content: center;
-  margin: auto;
 }
 
 .grid-item {
   padding: 20px;
   font-size: 30px;
   text-align: center;
-  margin: auto;
 }
+
