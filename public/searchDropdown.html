@@ -1,19 +1,247 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> Search Dropdown </title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Shows a search bar with recommendations based and previous searches.">
-    <base href="./">
-  </head>
-  <body>
-    <header>
-        <a href="index.html"><h1>Waitz</h1></a>
-      <hr/>
-    </header>
-    <main>
-      Search: <input type="text" value="Search">
-      <button type="button">Search</button>
-    </main>
-  </body>
+<head>
+  <title> Search Dropdown </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="description" content="Shows a search bar with recommendations based and previous searches.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.5.7/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.5.7/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="./js/jquery-3.2.1.slim.min.js">
+
+  </script>
+
+  <style media="screen">
+  body {
+    padding-top: 30px;
+  }
+  .product {
+    margin-bottom: 30px;
+  }
+  .product-inner {
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    padding: 10px;
+  }
+  .product img {
+    margin-bottom: 10px;
+  }
+  select {
+    display: flex;
+  }
+  </style>
+</head>
+
+<body>
+  <header class="stickyHeader" id="stickyHeader">
+    <div class="navbar">
+      <ul>
+        <li><a href="./index.html">Waitz</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px; margin: 15px">
+    <div class="container">
+      <div class="row" id="search">
+        <form id="search-form" action="" method="POST" enctype="multipart/form-data">
+          <div class="form-group col-xs-9">
+            <input class="form-control" type="text" placeholder="Search" />
+          </div>
+          <div class="form-group col-xs-3">
+            <button type="submit" class="btn btn-block btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+      <div class="row" id="filter">
+        <form>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="make" class="filter-make filter form-control">
+              <option value="">Select Make</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="model" class="filter-model filter form-control">
+              <option value="">Select Model</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="type" class="filter-type filter form-control">
+              <option value="">Select Type</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="price" class="filter-price filter form-control">
+              <option value="">Select Price Range</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="row" id="products">
+
+      </div>
+    </div>
+  </main>
+
+  <script type="text/javascript">
+
+  data = [
+    {
+      "make": "Happy Cow",
+      "model": "Light",
+      "type": "1 mile",
+      "price": "$3,000",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "make": "Zuchinni Safari",
+      "model": "Moderate",
+      "type": "2 miles",
+      "price": "$1,500",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "make": "Natalie's",
+      "model": "Long",
+      "type": "1.5 Miles",
+      "price": "$2,000",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "make": "Gen-Z Brunch",
+      "model": "Long",
+      "type": "2 Miles",
+      "price": "$2,000",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "make": "Jim's Bar",
+      "model": "Long",
+      "type": "6 miles",
+      "price": "$5,000",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "make": "Roseann's Diner",
+      "model": "Long",
+      "type": "3 Miles",
+      "price": "$5,",
+      "image": "./images/restaurant-clipart.png"
+
+    },
+    {
+      "make": "Sandwich Shack",
+      "model": "0.5 Miles",
+      "type": "Acoustic",
+      "price": ".05",
+      "image": "./images/restaurant-clipart.png"
+    }
+  ];
+
+  var products = "",
+  makes = "",
+  models = "",
+  types = "";
+
+  for (var i = 0; i < data.length; i++) {
+    var make = data[i].make,
+    model = data[i].model,
+    type = data[i].type,
+    price = data[i].price,
+    rawPrice = price.replace("$",""),
+    rawPrice = parseInt(rawPrice.replace(",","")),
+    image = data[i].image;
+
+    //create product cards
+    products += "<div class='col-sm-4 product' data-make='" + make + "' data-model='" + model + "' data-type='" + type + "' data-price='" + rawPrice + "'><div class='product-inner text-center'><img src='" + image + "'><br />Make: " + make + "<br />Model: " + model + "<br />Type: " + type + "<br />Price: " + price + "</div></div>";
+
+    //create dropdown of makes
+    if (makes.indexOf("<option value='" + make + "'>" + make + "</option>") == -1) {
+      makes += "<option value='" + make + "'>" + make + "</option>";
+    }
+
+    //create dropdown of models
+    if (models.indexOf("<option value='" + model+"'>" + model + "</option>") == -1) {
+      models += "<option value='" + model + "'>" + model + "</option>";
+    }
+
+    //create dropdown of types
+    if (types.indexOf("<option value='" + type + "'>" + type + "</option>") == -1) {
+      types += "<option value='" + type + "'>" + type + "</option>";
+    }
+  }
+
+  $("#products").html(products);
+  $(".filter-make").append(makes);
+  $(".filter-model").append(models);
+  $(".filter-type").append(types);
+
+  var filtersObject = {};
+
+  //on filter change
+  $(".filter").on("change",function() {
+    var filterName = $(this).data("filter"),
+    filterVal = $(this).val();
+
+    if (filterVal == "") {
+      delete filtersObject[filterName];
+    } else {
+      filtersObject[filterName] = filterVal;
+    }
+
+    var filters = "";
+
+    for (var key in filtersObject) {
+      if (filtersObject.hasOwnProperty(key)) {
+        filters += "[data-"+key+"='"+filtersObject[key]+"']";
+      }
+    }
+
+    if (filters == "") {
+      $(".product").show();
+    } else {
+      $(".product").hide();
+      $(".product").hide().filter(filters).show();
+    }
+  });
+
+  //on search form submit
+  $("#search-form").submit(function(e) {
+    e.preventDefault();
+    var query = $("#search-form input").val().toLowerCase();
+
+    $(".product").hide();
+    $(".product").each(function() {
+      var make = $(this).data("make").toLowerCase(),
+      model = $(this).data("model").toLowerCase(),
+      type = $(this).data("type").toLowerCase();
+
+      if (make.indexOf(query) > -1 || model.indexOf(query) > -1 || type.indexOf(query) > -1) {
+        $(this).show();
+      }
+    });
+  });
+
+  $(".product").hide();
+
+  </script>
+
+</body>
 </html>
