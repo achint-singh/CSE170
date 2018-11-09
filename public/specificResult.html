@@ -48,7 +48,7 @@
 
       <div class="container text-center tm-welcome-container">
         <div class="tm-welcome">
-          <img src="images/baseline_alarm_white_18dp.png">
+          <img src="images/baseline_alarm_white_18dp.png" alt="clock">
           <h1 class="text-uppercase mb-3 tm-site-name">Waitz</h1>
         </div>
       </div>
@@ -73,12 +73,12 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 tm-about-col-left">
           <div class="tm-v-center tm-bg-gray h-100 tm-about-text">
             <h2 class="tm-text-brown mb-4 tm-about-h2">Mendocino Farms</h2>
-            <p class="tm-about-description mb-0">    
-              <h3> Description: </h3>
-              <p> Mendocino Farms is a a restautant that serves sandwiches, salads, and soups. </p>
-              <h4> Daily Trend: </h4>
-              <h4> Usual Wait Time: </h4> 11 minutes
-              <h4> Current Expected Wait Time: </h4> 9 minutes 
+            <p class="tm-about-description mb-0">
+              <h5> Description: </h5>
+              <p> Mendocino Farms is a a restaurant that serves sandwiches, salads, and soups. </p>
+              <!--<h5> Daily Trend: </h5>-->
+              <h5> Average Wait Time: </h5> <div class="padding">11 minutes</div>
+              <h5> Current Expected Wait Time: </h5> <div class="padding">9 minutes</div>
             </p>
           </div>
         </div>
@@ -87,23 +87,31 @@
       <div class="row tm-about-row tm-mb-medium">
         <div class="tm-tab-links-container">
           <ul class="nav nav-tabs" id="tmTab" role="tablist">
+            <!-- link to open table website-->
             <li class="nav-item">
-              <a class="nav-link tm-bg-gray tm-media-v-center tm-tab-link" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">
+               <a href="https://www.opentable.com/?ref=12913&SP=ppc_g_us_tm&LS=gglppc&MID=us_tm&gclid=EAIaIQobChMI48z8_czG3gIVD6vsCh06wA_pEAAYASAAEgIxS_D_BwE&gclsrc=aw.ds">
+               <button type="button" class="nav-link tm-bg-gray tm-media-v-center tm-tab-link">
                 <i class="fab fa-2x fa-accusoft pr-4"></i>
                 <p class="media-body mb-0 tm-media-link">Reserve Table</p>
+              </button>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link tm-bg-gray tm-media-v-center tm-tab-link" id="contact-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false">
-                <i class="fab fa-2x fa-amazon-pay pr-4"></i>
-                <p class="media-body mb-0 tm-media-link">Order to Go</p>
-              </a>
+             <a href="https://www.doordash.com/business/mendocino-farms-944/"> 
+               <button type="button" class="nav-link tm-bg-gray tm-media-v-center tm-tab-link">
+                  <i class="fab fa-2x fa-amazon-pay pr-4"></i>
+                  <p class="media-body mb-0 tm-media-link">Order to Go</p>
+              </button>
+             </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link tm-bg-gray tm-media-v-center tm-tab-link" id="contact-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false">
+            <!-- link to google maps for Mendocino Farms-->
+           <li class="nav-item">
+             <a href="https://www.google.com/maps/place/Mendocino+Farms/@32.8679365,-117.2350604,17z/data=!3m2!4b1!5s0x80dc06d27c13ae87:0xb01df47d78f318b0!4m5!3m4!1s0x80dc06cd8750b7bf:0x8f8ef46d68186aee!8m2!3d32.8679365!4d-117.2328664">
+               <button type="button" class="nav-link tm-bg-gray tm-media-v-center tm-tab-link"> <!--<a class="nav-link tm-bg-gray tm-media-v-center tm-tab-link" id="contact-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false">-->
                 <i class="fas fa-2x fa-headphones pr-4"></i>
-                <p class="media-body mb-0 tm-media-link">Directions</p></a>
-              </a>
+                <p class="media-body mb-0 tm-media-link"> Directions</p>
+              </button>
+            </a>
             </li>
           </ul>
         </div>
@@ -122,10 +130,9 @@
             <div class="grid-item">
               Tajima Ramen <br/> <meter value=0.8>80%</meter> <br/> 6 mi
            </div>
+       </div>
 
-          </div>
-
-        </div>
+     </div>
     </div> <!-- .container -->
   </div> <!-- .main -->
   <footer>
@@ -174,6 +181,10 @@
     });
 
   </script>
+  <style>
+      .padding{
+        padding-bottom: 10px;
+      }
+  </style>
 </body>
 </html>
-
