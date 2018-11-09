@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Search Dropdown </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="description" content="Shows a search bar with recommendations based and previous searches.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+  <script type="../js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.5.7/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.5.7/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="./js/jquery-3.2.1.slim.min.js"></script>
+
+  <style media="screen">
+  body {
+    padding-top: 30px;
+  }
+  .product {
+    margin-bottom: 30px;
+  }
+  .product-inner {
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    padding: 10px;
+    display: flex;
+  }
+  .product img {
+    margin-bottom: 10px;
+  }
+  select {
+    display: flex;
+  }
+  .progress-bar-danger {
+    background-color: #d9534f !important;
+  }
+  .progress-bar-warning{background-color:#f0ad4e !important}
+  .progress-bar-info{background-color:#5bc0de !important}
+  .progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+  }
+  .tags {
+    font-size: 11px;
+  }
+  </style>
+</head>
+
+<body>
+  <header class="stickyHeader" id="stickyHeader">
+    <div class="navbar">
+      <ul>
+        <li><a href="./index.html">Waitz</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px; margin: 15px">
+    <div class="container">
+      <div class="row" id="search">
+        <form id="search-form" action="" method="POST" encdistance="multipart/form-data">
+          <div class="form-group col-xs-9">
+            <input class="form-control" distance="text" placeholder="Search" />
+          </div>
+          <div class="form-group col-xs-3">
+            <button distance="submit" class="btn btn-block btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+      <!--
+      <div class="row" id="filter">
+        <form>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="name" class="filter-name filter form-control">
+              <option value="">Select name</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="wait" class="filter-wait filter form-control">
+              <option value="">Select wait</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="distance" class="filter-distance filter form-control">
+              <option value="">Select distance</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3 col-xs-6">
+            <select data-filter="tags" class="filter-tags filter form-control">
+              <option value="">Select tags Range</option>
+              <option value="">Show All</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      -->
+      <div class="row" id="products">
+
+      </div>
+    </div>
+  </main>
+
+  <script distance="text/javascript">
+
+  data = [
+    {
+      "name": "Happy Cow",
+      "wait": 10,
+      "distance": 1,
+      "tags": "burger, restaurant, American, steak",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Zuchinni Safari",
+      "wait": 50,
+      "distance": 2,
+      "tags": "vegetarian, restaurant",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Natalie's",
+      "wait": 80,
+      "distance": 1.5,
+      "tags": "cafe, breakfast, coffee",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Gen-Z Deluxe",
+      "wait": 90,
+      "distance": 2,
+      "tags": "brunch, bar, cafe, restaurant, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Jim's Bar",
+      "wait": 10,
+      "distance": 6,
+      "tags": "bar, restaurant, American",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Roseanne's Diner",
+      "wait": 25,
+      "distance": 3,
+      "tags": "diner, restaurant, American, breakfast, late night, burger",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Sandwich Shack",
+      "wait": 30,
+      "distance": 8,
+      "tags": "sandwich, fast food, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Cocoa Paradise",
+      "wait": 45,
+      "distance": 2,
+      "tags": "bar, late night, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Copper Table",
+      "wait": 25,
+      "distance": 1,
+      "tags": "bar, French, restaurant",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Streetwise Fence",
+      "wait": 43,
+      "distance": 15,
+      "tags": "restaurant, American, burger, steak",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Big Bass",
+      "wait": 81,
+      "distance": 7,
+      "tags": "restaurant, seafood, southern",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Mountain Bass",
+      "wait": 33,
+      "distance": 4,
+      "tags": "bar, music, late night",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Roast",
+      "wait": 38,
+      "distance": 5,
+      "tags": "bbq, restaurant",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Cave",
+      "wait": 51,
+      "distance": 1,
+      "tags": "Middle Eastern, bbq, falafel, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Maple",
+      "wait": 72,
+      "distance": 2,
+      "tags": "French, brunch, restaurant, bar",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Little Italy",
+      "wait": 90,
+      "distance": 5,
+      "tags": "Italian, restaurant, pasta, pizza, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Crickets",
+      "wait": 57,
+      "distance": 5,
+      "tags": "British, bar, tea, cafe, breakfast",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Greek Whale",
+      "wait": 62,
+      "distance": 7,
+      "tags": "Greek, Mediterranean, restaurant, gyros, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Sapphire Farmer",
+      "wait": 27,
+      "distance": 3,
+      "tags": "Mediterranean, Middle Eastern, restaurant, vegetarian",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Dwarf Garden",
+      "wait": 52,
+      "distance": 3,
+      "tags": "bar, late night",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The City of God",
+      "wait": 9,
+      "distance": 6,
+      "tags": "Russian, soup, salad, restaurant",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "The Hummingbird",
+      "wait": 79,
+      "distance": 5,
+      "tags": "brunch, restaurant, bar, sandwich, breakfast, lunch",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Clarity",
+      "wait": 60,
+      "distance": 1,
+      "tags": "vegetarian, fast food, burger",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Vista",
+      "wait": 28,
+      "distance": 3,
+      "tags": "Mexican, fast food, tacos",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Gentle",
+      "wait": 61,
+      "distance": 4,
+      "tags": "Thai, fast food",
+      "image": "./images/restaurant-clipart.png"
+    },
+    {
+      "name": "Enigma",
+      "wait": 3,
+      "distance": 1,
+      "tags": "fast food, burger",
+      "image": "./images/restaurant-clipart.png"
+    },
+  ];
+
+  var products = "",
+  names = "",
+  waits = "",
+  distances = "";
+
+  var reorder = function (key) {
+    // reset products
+    products = ""
+
+    data = _.sortBy(data, [key])
+
+    for (var i = 0; i < data.length; i++) {
+      var name = data[i].name,
+      wait = data[i].wait,
+      distance = data[i].distance,
+      tags = data[i].tags,
+      rawtags = tags.replace("$",""),
+      image = data[i].image,
+      bar_class = "progress-bar-info";
+
+      if (wait > 33) bar_class = "progress-bar-warning";
+      if (wait > 66) bar_class = "progress-bar-danger";
+      console.log(wait, bar_class)
+
+      //create product cards
+      products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + rawtags + "'><div class='product-inner text-center'" + 'onClick="window.open( ' + "'./specificResult.html','_top'" + ' ); return false";>' + "<img src='" + image + "'><div>" + name + "<br />" + '<div class="progress"><div class="progress-bar ' + bar_class + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
+       + "" + distance + " mi<br /><i class=tags>" + tags + "</i></div></div></div></a>";
+
+      /*
+      //create dropdown of names
+      if (names.indexOf("<option value='" + name + "'>" + name + "</option>") == -1) {
+        names += "<option value='" + name + "'>" + name + "</option>";
+      }
+
+      //create dropdown of waits
+      if (waits.indexOf("<option value='" + wait+"'>" + wait + "</option>") == -1) {
+        waits += "<option value='" + wait + "'>" + wait + "</option>";
+      }
+
+      //create dropdown of distances
+      if (distances.indexOf("<option value='" + distance + "'>" + distance + "</option>") == -1) {
+        distances += "<option value='" + distance + "'>" + distance + "</option>";
+      }
+      */
+    }
+    $("#products").html(products);
+    /*
+    $(".filter-name").append(names);
+    $(".filter-wait").append(waits);
+    $(".filter-distance").append(distances);
+    */
+  }
+
+  reorder("wait");
+
+  var filtersObject = {};
+
+  //on filter change
+  $(".filter").on("change",function() {
+    var filterName = $(this).data("filter"),
+    filterVal = $(this).val();
+
+    if (filterVal == "") {
+      delete filtersObject[filterName];
+    } else {
+      filtersObject[filterName] = filterVal;
+    }
+
+    var filters = "";
+
+    for (var key in filtersObject) {
+      if (filtersObject.hasOwnProperty(key)) {
+        filters += "[data-"+key+"='"+filtersObject[key]+"']";
+      }
+    }
+
+    if (filters == "") {
+      $(".product").show();
+    } else {
+      $(".product").hide();
+      $(".product").hide().filter(filters).show();
+    }
+  });
+
+  //on search form submit
+  $("#search-form").submit(function(e) {
+    e.preventDefault();
+    var query = $("#search-form input").val().toLowerCase();
+
+    $(".product").hide();
+    $(".product").each(function() {
+      var name = $(this).data("name").toLowerCase(),
+      tags= $(this).data("tags").toLowerCase();
+
+      if (name.indexOf(query) > -1 || tags.indexOf(query) > -1) {
+        $(this).show();
+      }
+    });
+  });
+
+  $(".product").hide();
+
+  </script>
+
+</body>
+</html>
