@@ -342,11 +342,10 @@ var reorder = function (key) {
 
     if (wait > 33) bar_class = "progress-bar-warning";
     if (wait > 66) bar_class = "progress-bar-danger";
-    console.log(wait, bar_class)
 
     //create product cards
     products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + rawtags + "'><div class='product-inner text-center'" + 'onClick="window.open( ' + "'./specificResult.html','_top'" + ' ); return false";>' + "<img src='" + image + "' class='imgSize'><div class='rest-info'>" + name + "<br />" + '<div class="progress"><div class="progress-bar ' + bar_class + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
-    + "" + distance + " mi<br /><i class=tags>" + tags + "</i></div></div></div></a>";
+    + "" + distance + " miles<br /><i class=tags>" + tags + "</i></div></div></div></a>";
 
     /*
     //create dropdown of names
