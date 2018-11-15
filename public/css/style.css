@@ -14,21 +14,6 @@ a {
 	color:#ffffff;
 }
 
-nav {
-	background-color:transparent!important;
-}
-.navbar ul li a {
-	color:#ffffff;
-	text-decoration:none;
-	border-bottom:none;
-}
-
-.navbar {
-	background-color: #000;
-    background-image: linear-gradient(to bottom, #a357fd, #8b3d9e);
-    box-shadow: 0 5px 10px #0000003d, 0 5px 10px #0000003d;
-	position: relative;
-}
 
 .stickyHeader {
 	width:100%;
@@ -37,25 +22,6 @@ nav {
     top: 0;
 }
 
-.navbar ul {
-	display: inline-flex;
-	margin:0;
-}
-
-.navbar ul li {
-	padding:30px 69px;
-	list-style:none;
-	text-transform: uppercase;
-}
-
-.navbar ul li:hover {
-	background: #a641da85;
-	transition: 0.4s ease-in-out;
-}
-
-.navbar ul li:hover a {
-	color:#ffffff;
-}
 
 .header-text h2 {
 	margin:0 0 20px;
