@@ -1,0 +1,18 @@
+.column {
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column h1 {
+    margin-top: 150px;
+    text-align: center;
+    color: white;
+}
