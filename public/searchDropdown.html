@@ -28,8 +28,11 @@
   /*body {
   padding-top: 30px;
   }*/
+  #products {
+    padding-bottom: 50px;
+  }
   .product {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .product-inner {
     box-shadow: 0 0 10px rgba(0,0,0,.2);
@@ -162,7 +165,7 @@
           </form>
           <hr>
         </div>
-        <select name="slct" id="slct" onchange="newChange()">
+        <select name="slct" id="slct" onchange="newChange(event)">
             <option value="wait">wait</option>
             <option value="distance">distance</option>
         </select>
@@ -384,7 +387,7 @@ var reorder = function (key) {
     if (wait > 79) bar_class = "progress-bar-danger";
 
     // name, wait time, distance
-    var info = name.replace(" ", "_").replace("'", "") + "&" + String(wait) + "&" + String(distance)
+    var info = name.replace(" ", "_").replace("'", "") + "&" + String(wait) + "&" + String(distance) + "&" + tags + "&" + image
     var resultLink = 'onClick="location.href=' + "'./specificResult.html?" + info +  "'" + ';" style="cursor: pointer;">'
 
     //console.log(resultLink)
@@ -406,35 +409,8 @@ var filtersObject = {};
 
 //on filter change
 $(".slct").on("change",function() {
-
-  /*
-  var filterName = $(this).data("filter"),
-  filterVal = $(this).val();
-
-  if (filterVal == "") {
-    delete filtersObject[filterName];
-  } else {
-    filtersObject[filterName] = filterVal;
-  }
-
-  var filters = "";
-
-  for (var key in filtersObject) {
-    if (filtersObject.hasOwnProperty(key)) {
-      filters += "[data-"+key+"='"+filtersObject[key]+"']";
-    }
-  }
-  */
   reorder(document.getElementById('slct'));
 
-  /*
-  if (filters == "") {
-    $(".product").show();
-  } else {
-    $(".product").hide();
-    $(".product").hide().filter(filters).show();
-  }
-  */
 });
 
 //on search form submit
@@ -455,12 +431,10 @@ $("#searchForm").submit(function(e) {
 });
 
 var newChange  = function (e) {
-  e.preventDefault();
-  console.log("here")
+  if(e != null) e.preventDefault();
   reorder(document.getElementById('slct'));
   var query = document.getElementById('searchText').value.toLowerCase();
 
-  console.log(query)
   if (query == "") {
     $(".product").hide();
   }
@@ -477,7 +451,39 @@ var newChange  = function (e) {
   }
 }
 
-$(".product").hide();
+var getParams = function () {
+  var params = [];
+
+  if (document.URL.includes('?')) {
+    params = document.URL.split('?')
+            .pop()
+            .split('&');
+  }
+  return params;
+};
+
+var firstTime = true
+if(firstTime == true) {
+  params = getParams();
+  if (params.length == 0) {
+    $(".product").hide();
+  }
+  else if (params[0] == "distance") {
+    console.log("here")
+    $(".product").hide();
+    $('#slct option:contains(' + params[0] + ')').prop({selected: true});
+    reorder(document.getElementById('slct'));
+  }
+  else if (params[0] != "wait") {
+    console.log("there")
+    $(".product").hide();
+    $('#searchText').val(params[0]);
+    $('#searchButton').prop({selected: true});
+    newChange(null);
+  };
+  firstTime = false
+};
+
 
 </script>
 
