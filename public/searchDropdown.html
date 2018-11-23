@@ -67,6 +67,11 @@
   .tags{
     font-size: 17px;
   }
+  .searchResText{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 240px;
+  }
   .imgSize{
     width: 90px;
     height: 90px;
@@ -170,7 +175,7 @@
         </select>
     </header>
 
-    <div id="noSearchRes"></div>
+    <div class="searchResText" id="SearchRes"></div>
     <div class="row" id="products"></div>
 <footer>
     <section class="align">
@@ -341,7 +346,7 @@ data = [
     "currentWT": "Average"
   },
   {
-    "name": "Vista",
+    "name": "Taco Stand",
     "wait": 28,
     "distance": 3,
     "tags": "Mexican, fast food, tacos, burritos, churros, fries, carne asada, chicken, pork, fish",
@@ -381,7 +386,7 @@ var reorder = function (key) {
     bar_class = "progress-bar-info",
     // added code- sierra
     currentWT = data[i].currentWT;
-    // don't change these values of 33 and 80 - sierra
+    // don't change these values of 33 and 79 - sierra
     if (wait > 33) bar_class = "progress-bar-warning";
     if (wait > 79) bar_class = "progress-bar-danger";
 
@@ -392,12 +397,11 @@ var reorder = function (key) {
     //console.log(resultLink)
 
     //create product cards
-    products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + tags + "' data-currentWT='" + currentWT + "'><div class='product-inner text-center'" + resultLink + "<img src='" + image + "' class='imgSize'><div class='rest-info'><b>" + name + "</b><br />" + '<div class="progress"><div class="progress-bar ' + bar_class + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
+    products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + tags + "' data-currentWT='" + currentWT + "'><div class='product-inner text-center'" + resultLink + "<img src='" + image + "' class='imgSize'><div class='rest-info'><b>" + name + "</b><br />" + '<div class="progress"><div class="progress-bar ' + bar_class
+    + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
     + "" + distance + " miles<br /><div class=tags>Current Wait: <i>" + currentWT + "</i></div></div></div></div></a>";
 
-
   }
-
   // displays products on innerHTML
   $("#products").html(products);
 }
@@ -420,11 +424,13 @@ $("#searchForm").submit(function(e) {
   $(".product").hide();
   $(".product").each(function() {
     var name = $(this).data("name").toLowerCase(),
-    tags= $(this).data("tags").toLowerCase();
+    tags = $(this).data("tags").toLowerCase();
 
     if (name.indexOf(query) > -1 || tags.indexOf(query) > -1) {
       $(this).show();
     }
+    // display text after user does a search - sierra
+    $("#SearchRes").html($("#searchForm input").val().charAt(0).toUpperCase() + $("#searchForm input").val().slice(1) + " Options:");
   });
 
 });
@@ -483,10 +489,6 @@ if(firstTime == true) {
   firstTime = false
 };
 
-
 </script>
-
 </body>
-
-
 </html>
