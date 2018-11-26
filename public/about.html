@@ -38,22 +38,10 @@ http://www.tooplate.com/view/2101-insertion
 <body>
   <header>
     <div class="tm-main">
-      <div class="tm-welcome-section"><strong>Waitz</strong></div>
+      <div class="tm-welcome-section"><a href="index.html" style="color:#97adc6"><strong>Waitz</strong></a></div>
       <br>
-      <form action="index.html" method="GET" id="searchForm">
-        <img src="images/baseline_search_black_18dp.png">
-        <input type="text" name="keyword" placeholder="burger, salad, pasta..." id="searchText">
-        <input type="submit" value="Search" id="searchButton">
-      </form>
-      <hr>
     </div>
   </header>
-  <!-- Loader -->
-  <div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-  </div>
 
   <div class="tm-main"></div>
       <div class="tm-welcome">
@@ -61,6 +49,11 @@ http://www.tooplate.com/view/2101-insertion
           <img src="images/baseline_alarm_white_18dp.png">
           <h1 class="text-uppercase mb-3 tm-site-name">About Us</h1>
           <p class="tm-site-description">Waitz provides the wait time for eateries in your area!
+            Use the buttons or filter functionality to find the closest places or shortest wait times.
+            Use the search bar to look up types of food and find relevant result that provide distance and wait times.
+            The color coded system is as follows: 
+            <br><strong>Blue</strong> - Less wait time than average. <br><strong>Yellow</strong> - average wait time for location <strong>Red</strong> - greater than average wait time
+            <br><br>
             Please contact us at <a href="info@waitz.com">info@waitz.com</a> for help or support.
           </p>
 
@@ -85,8 +78,7 @@ http://www.tooplate.com/view/2101-insertion
             </li>
             <li>
               <a href="about.html">
-                <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user">
-                <span class="invisible">Profile</span></svg>
+                <i class="icon icon--2x fa fa-info" style="color:#97adc6" aria-hidden="true"></i>
               </a>
             </li>
           </ul>
