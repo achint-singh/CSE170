@@ -428,6 +428,15 @@ $(".slct").on("change",function() {
 //on search form submit
 $("#searchForm").submit(function(e) {
   e.preventDefault();
+
+  var cur_filter = document.getElementById('slct').value[document.getElementById('slct').selectedIndex].value;
+
+  if (cur_filter == undefined) {
+    //$('#slct option:contains(' + "wait" + ')').prop({selected: true});
+    $("#slct").val('wait');
+    reorder(document.getElementById('slct'));
+  }
+
   var query = $("#searchForm input").val().toLowerCase();
 
   $(".product").hide();
