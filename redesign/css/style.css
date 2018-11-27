@@ -1,0 +1,111 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:16px;
+	font-family: 'Montserrat', sans-serif;
+	opacity:1;
+}
+
+a {
+	color:#ffffff;
+}
+
+
+.stickyHeader {
+	width:100%;
+	text-align: center;
+	position: fixed;
+    top: 0;
+}
+
+
+.header-text h2 {
+	margin:0 0 20px;
+	width:100%;
+	font-size: 35px;
+}
+
+.header-text {
+    width: 100%;
+    float: left;
+    padding: 140px 40px;
+}
+
+.header-text p {
+	font-size:16px;
+	line-height:30px;
+}
+
+.content-text {
+	border: 1px solid #e3e5ef;
+    padding: 30px;
+    background: #fff;
+}
+
+.context-division {
+	width:50%;
+  	margin: auto;
+	display:flex;
+	padding: 0 15px;
+}
+
+.content-block {
+	display:flex;
+}
+
+@media only screen and (max-width: 1024px) {
+    .navbar ul li {
+    padding: 30px 60px;
+	}
+	.content-block {
+    display: block;
+}
+	.context-division {
+    width: 100%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.navbar ul li {
+    padding: 20px 10px;
+}
+	.header-text {
+   padding: 100px 0px;
+}
+	.header-text h2 {
+    font-size: 28px;
+}
+	.content-text {
+   padding: 20px;
+	}
+}
+
+.toggles {
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+  clear: both;
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+  margin: auto;
+
+}
+
+.grid-container {
+  align-content: center;
+  margin: auto;
+}
+
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  margin: auto;
+}

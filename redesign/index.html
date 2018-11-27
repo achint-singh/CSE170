@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Home </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="description" content="Shows a search bar with recommendations based and previous searches.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+  <script type="../js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.5.7/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.5.7/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.5.7/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="./js/jquery-3.2.1.slim.min.js"></script>
+
+  <style media="screen">
+  /*body {
+  padding-top: 30px;
+  }*/
+  #products {
+    padding-bottom: 50px;
+  }
+  .product {
+    margin-bottom: 15px;
+  }
+  .product-inner {
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    padding: 10px;
+    display: flex;
+  }
+  .product img {
+    margin-bottom: 10px;
+  }
+  select {
+    display: flex;
+  }
+  .progress-bar-danger {
+    background-color: #d9534f !important;}
+  .progress-bar-warning{background-color:#f0ad4e !important}
+  .progress-bar-info{background-color:#5bc0de !important}
+  .progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+  }
+  .tags{
+    font-size: 17px;
+  }
+  .searchResText{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 240px;
+  }
+  .imgSize{
+    width: 90px;
+    height: 90px;
+    padding: 8px;
+  }
+  .rest-info {
+    text-align: left;
+  }
+
+.filter  {
+	display:inline-block;
+	vertical-align:middle;
+	position:relative;
+	width:200px;
+}
+.filter select {
+	line-height:normal;
+	height:38px;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+	appearance:none;
+	width:200px;
+	border-radius:6px;
+	display:block;
+	width:100%;
+	border:1px solid #c8c8c8;
+	background:#fff url(images/inpbg.png) repeat-x 0 0;
+	color:#9f9f9f;
+	padding:8px 20px 7px 10px;
+	margin:0;
+	line-height:normal;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
+}
+.ie8 .filter select{padding-right:3px}
+.filter select:focus {
+	background:#f9f9f9;
+	outline:none;
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.3), inset 0 0 7px rgba(100,100,100,0.3);
+	border-color:#97adc6;
+}
+.filter ::-ms-expand {
+ display:none;
+}
+.filter:after{
+	content:"";
+	position:absolute;
+	z-index:2;
+	right:8px;
+	top:50%;
+	margin-top:-3px;
+	height:0;
+	width:0;
+	border-top:6px solid #97adc6;
+	border-left:6px solid transparent;
+	border-right:6px solid transparent;
+	pointer-events:none;
+}
+label{display:block}
+.label-stacked {
+	display:block;
+	color:#505050;
+	padding:10px 0 7px 2px;
+	font-size:14px;
+	font-weight:bold;
+	line-height:1.1;
+}
+
+  </style>
+
+  <!-- load CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">        <!-- Google web font "Open Sans" -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">                                            <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="css/fontawesome-all.min.css">                                      <!-- Font awesome -->
+  <link rel="stylesheet" href="css/tooplate-style.css">                                           <!-- Templatemo style -->
+  <link rel="stylesheet" href="css/nav.css">
+
+  <script>
+    var renderPage = true;
+
+    if (navigator.userAgent.indexOf('MSIE') !== -1
+      || navigator.appVersion.indexOf('Trident/') > 0) {
+      /* Microsoft Internet Explorer detected in. */
+      alert("Please view this in a modern browser such as Chrome or Microsoft Edge.");
+    }
+  </script>
+
+</head>
+
+<body>
+    <header>
+        <div class="tm-main">
+          <div class="tm-welcome-section"><a href="index2.html" style="color:#97adc6"><strong>Waitz</strong></a></div>
+          <br>
+          <form action="index2.html" method="GET" id="searchForm">
+            <img src="images/baseline_search_black_18dp.png">
+            <input type="text" name="keyword" placeholder="burger, salad, pasta..." id="searchText">
+            <input type="submit" value="Search" id="searchButton">
+          </form>
+          <hr>
+        </div>
+    </header>
+
+    <span class="filter">
+      <select name="slct" id="slct" onchange="newChange(event)">
+          <option value="empty" disabled selected>Filter By</option>
+          <option value="wait">Wait (Least to Greatest)</option>
+          <option value="distance">Distance (Least to Greatest)</option>
+      </select>
+    </span>
+
+    <div class="tm-main"></div>
+    <div class="tm-welcome">
+      <div class="container text-center tm-welcome-container">
+        <img src="images/baseline_alarm_white_18dp.png">
+        <p class="tm-site-description">Waitz provides the wait time for eateries in your area!
+          <br>
+          The wait time color coding system is as follows:
+          <br><strong>Blue</strong> - Less wait time than average. <br><strong>Yellow</strong> - average wait time for location <strong>Red</strong> - greater than average wait time
+        </p>
+
+      </div>
+    </div>
+
+    <div class="searchResText" id="SearchRes"></div>
+    <div class="row" id="products"></div>
+
+
+
+<footer>
+    <section class="align">
+        <nav class="navigation navigation--inline">
+          <ul>
+            <li>
+              <a href="index2.html">
+                <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#home">
+                <span class="invisible">Home</span></svg>
+              </a>
+            </li>
+            <li>
+              <a href="searchDropdown.html">
+                <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search">
+                <span class="invisible">Search</span></svg>
+              </a>
+            </li>
+            <li>
+              <a href="about.html">
+                <i class="icon icon--2x fa fa-info" style="color:#97adc6" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        </section>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icons"><symbol id="bell" viewBox="0 0 92 92"><path d="M84 71.5c-6.7 0-9.3-3.9-9.3-28.4 0-19.2-8.7-31.2-23.7-33v-6.2c0-2.2-1.8-4-4-4s-4 1.8-4 4v6c-16 1.3-25.3 13.5-25.3 33.1 0 24.5-2.9 28.4-9.7 28.4-2.1.1-4 1.6-4 3.8 0 2.3 1.8 3.8 4 3.8h26c.3 3 1.2 6.7 3.6 9.3 2.1 2.3 4.9 3.6 8.2 3.6 3.3 0 6.1-1.4 8.2-3.6 2.5-2.7 3.5-6.3 3.9-9.3h26.1c2.2 0 4-1.5 4-3.8 0-2.2-1.8-3.7-4-3.7zm-35.8 11.4c-.4.4-1 1-2.4 1-1.3 0-1.9-.6-2.3-1-.7-.9-1.2-1.9-1.4-3.9h7.8999999999999995c-.4 2-.9 3-1.8 3.9zm-1.6-11.9h-24.8c3.7-7 3.7-17.9 3.7-28.1 0-16.3 7.1-24.9 19.9-24.9h1.1c12.8 0 19.9 8.6 19.9 24.9 0 10.2 0 21.1 3.7 28.1h-23.5zm14.2-35.5c.1 1.9-1.4 3.6-3.3 3.7h-.2c-1.8 0-3.4-1.4-3.5-3.3-.3-4.5-3.8-6.1-4.2-6.3-1.8-.8-2.6-2.8-1.9-4.6.7-1.8 2.7-2.6 4.5-1.9.4.2 8.1 3.4 8.6 12.4z"/></symbol><symbol id="cart" viewBox="0 0 92 92"><path d="M91.8 27.3l-10.7 33.7c-.8 2.4-2.9 4-5.4 4h-41.3c-2.4 0-4.7-1.5-5.5-3.7l-15.8-42.3h-9.1c-2.2 0-4-1.8-4-4s1.8-4 4-4h11.9c1.7 0 3.2 1.1 3.8 2.7l16.3 43.3h38l8.5-27h-47.1c-2.2 0-4-1.8-4-4s1.8-4 4-4h52.6c1.3 0 2.5.7 3.2 1.7.8 1 1 2.4.6 3.6zm-55.4 43c-1.7 0-3.4.7-4.6 1.9-1.2 1.2-1.9 2.9-1.9 4.6 0 1.7.7 3.4 1.9 4.6 1.2 1.2 2.9 1.9 4.6 1.9s3.4-.7 4.6-1.9c1.2-1.2 1.9-2.9 1.9-4.6 0-1.7-.7-3.4-1.9-4.6-1.2-1.2-2.9-1.9-4.6-1.9zm35.9 0c-1.7 0-3.4.7-4.6 1.9s-1.9 2.9-1.9 4.6c0 1.7.7 3.4 1.9 4.6 1.2 1.2 2.9 1.9 4.6 1.9 1.7 0 3.4-.7 4.6-1.9 1.2-1.2 1.9-2.9 1.9-4.6 0-1.7-.7-3.4-1.9-4.6s-2.9-1.9-4.6-1.9z"/></symbol><symbol id="home" viewBox="0 0 92 92"><path d="M88 49c-1 0-2-.4-2.8-1.1l-39.2-38.3-39.2 38.3c-1.6 1.5-4.1 1.5-5.7-.1-1.5-1.6-1.5-4.1.1-5.7l42-41c1.6-1.5 4-1.5 5.6 0l42 41c1.6 1.5 1.6 4.1.1 5.7-.8.8-1.9 1.2-2.9 1.2zm-8.8 39v-39.1c0-2.2-1.8-4-4-4s-4 1.8-4 4v35.1h-12.5v-21.4c0-2.9-2.4-5.3-5.3-5.3h-14.8c-2.9 0-5.3 2.4-5.3 5.3v21.4h-12.5v-35.1c0-2.2-1.8-4-4-4s-4 1.8-4 4v39.1c0 2.2 1.8 4 4 4h20.5c2.2 0 4-1.8 4-4v-22.7h9.5v22.7c0 2.2 1.8 4 4 4h20.5c2.2 0 3.9-1.8 3.9-4z"/></symbol><symbol id="search" viewBox="0 0 92 92"><path d="M57.8 2.2c-17.1 0-31 14.1-31 31.3 0 7.3 2.5 13.9 6.6 19.3l-29.4 29.8c-1.7 1.8-1.7 4.6 0 6.3.9.9 2 1.3 3.1 1.3 1.2 0 2.3-.4 3.2-1.3l29.4-29.8c5.1 3.7 11.3 5.8 18 5.8 17.1 0 31-14.1 31-31.3s-13.8-31.4-30.9-31.4zm0 54.8c-12.7 0-23-10.5-23-23.4 0-12.9 10.3-23.4 23-23.4s23 10.5 23 23.4c0 12.9-10.3 23.4-23 23.4zm15.5-23c-.2 1.7-1.7 3-3.4 3h-.5c-1.9-.3-3.2-2-3-3.9.7-5.2-5.1-7.9-5.4-8-1.7-.8-2.5-2.9-1.7-4.6s2.8-2.5 4.6-1.8c.4.1 10.8 4.9 9.4 15.3zm-7.3 7.6c.7.7 1.2 1.8 1.2 2.8 0 1.1-.4 2.1-1.2 2.8-.7.7-1.8 1.2-2.8 1.2-1 0-2.1-.4-2.8-1.2-.7-.7-1.2-1.8-1.2-2.8 0-1 .4-2.1 1.2-2.8.7-.7 1.8-1.2 2.8-1.2 1 0 2 .4 2.8 1.2z"/></symbol><symbol id="user" viewBox="0 0 92 92"><path d="M46 57.1c14.8 0 26.9-12.1 26.9-27 0-15-12.1-27.1-26.9-27.1s-26.9 12.1-26.9 27c0 15 12.1 27.1 26.9 27.1zm0-46.1c10.4 0 18.9 8.5 18.9 19s-8.5 19-18.9 19-18.9-8.5-18.9-19 8.5-19 18.9-19zm12.5 48.7c-1.3-.4-2.8-.1-3.8.8l-8.7 7.4-8.7-7.4c-1.1-.9-2.5-1.2-3.8-.8-5.6 1.8-33.5 11.4-33.5 25.3 0 2.2 1.8 4 4 4h84c2.2 0 4-1.8 4-4 0-13.9-27.9-23.5-33.5-25.3zm-48.4 21.3c4.4-4.7 15-9.9 23.8-12.9l9.5 8.1c1.5 1.3 3.7 1.3 5.2 0l9.5-8.1c8.8 3.1 19.4 8.3 23.8 12.9h-71.8z"/></symbol>
+        </svg>
+</footer>
+
+<script type="text/javascript">
+
+data = [
+  {
+    "name": "Happy Cow",
+    "wait": 10,
+    "distance": 1,
+    "tags": "burger, restaurant, American, steak, french fries, drinks, salad, hot dog, cake",
+    "image": "./images/burger.png",
+    "currentWT": "Not Busy"
+  },
+  {
+    "name": "Zuchinni Safari",
+    "wait": 50,
+    "distance": 2,
+    "tags": "vegetarian, restaurant, vegan, salad, vegetables, soup",
+    "image": "./images/fruit.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "Natalie's",
+    "wait": 80,
+    "distance": 1.5,
+    "tags": "cafe, breakfast, coffee. pastries, tea, sandwich, smoothie, breakfast, eggs",
+    "image": "./images/smoothie.png",
+    "currentWT": "Extremely Busy"
+  },
+  {
+    "name": "Gen-Z Deluxe",
+    "wait": 90,
+    "distance": 2,
+    "tags": "brunch, bar, cafe, restaurant, vegetarian, vegan, gluten free, soup, sandwich",
+    "image": "./images/soup.png",
+    "currentWT": "Extremely Busy"
+  },
+  {
+    "name": "Jim's Bar",
+    "wait": 10,
+    "distance": 6,
+    "tags": "bar, restaurant, American, burger, salad, sandwich, drinks, beer, beef",
+    "image": "./images/sandwich.png",
+    "currentWT": "Not Busy"
+  },
+  {
+    "name": "The Streetwise Fence",
+    "wait": 43,
+    "distance": 15,
+    "tags": "restaurant, American, burger, steak, fries, milkeshake, soup, salad, pasta",
+    "image": "./images/saladbowl.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "The Big Bass",
+    "wait": 81,
+    "distance": 7,
+    "tags": "restaurant, seafood, southern, fish, shrimp, calamari",
+    "image": "./images/fish.png",
+    "currentWT": "Extremely Busy"
+  },
+  {
+    "name": "Pizza Port",
+    "wait": 34,
+    "distance": 4,
+    "tags": "bar, late night, drinks, pizza, wings, burgers, fries, pasta, beef",
+    "image": "./images/pizza.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "Juice It",
+    "wait": 38,
+    "distance": 5,
+    "tags": "vegetables, fruit, juice, smoothie, acai bowl, salad",
+    "image": "./images/smoothie.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "The Cave",
+    "wait": 51,
+    "distance": 1,
+    "tags": "Middle Eastern, bbq, falafel, vegetarian, vegan, hummus, pita, dinner",
+    "image": "./images/falafel.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "The Maple",
+    "wait": 14,
+    "distance": 2,
+    "tags": "French, brunch, restaurant, bar, breakfast, eggs, waffles, donuts, pancakes, juice",
+    "image": "./images/breakfast.png",
+    "currentWT": "Not Busy"
+  },
+  {
+    "name": "Little Italy",
+    "wait": 90,
+    "distance": 5,
+    "tags": "Italian, restaurant, pasta, pizza, vegetarian, vegan, ice cream, cake, bread, wine, dinner",
+    "image": "./images/glass.png",
+    "currentWT": "Extremely Busy"
+  },
+  {
+    "name": "Crickets",
+    "wait": 57,
+    "distance": 5,
+    "tags": "British, bar, tea, cafe, breakfast, sandwich, eggs, coffee, pancakes, mimosa, brunch, lunch",
+    "image": "./images/coffee.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "The Greek Whale",
+    "wait": 62,
+    "distance": 7,
+    "tags": "Greek, Mediterranean, chicken, pork, restaurant, gyros, vegetarian, vegan, rice, pita, hummus, falafel",
+    "image": "./images/rice.jpg",
+    "currentWT": "Average"
+  },
+  {
+    "name": "The Sapphire Farmer",
+    "wait": 27,
+    "distance": 3,
+    "tags": "Mediterranean, Middle Eastern, restaurant, vegetarian, pita, hummus, falafel, chicken, beef",
+    "image": "./images/chicken.png",
+    "currentWT": "Not Busy"
+  },
+  {
+    "name": "The Hummingbird",
+    "wait": 81,
+    "distance": 5,
+    "tags": "brunch, restaurant, bar, sandwich, breakfast, lunch",
+    "image": "./images/hotplate.png",
+    "currentWT": "Extremely Busy"
+  },
+  {
+    "name": "Clarity",
+    "wait": 60,
+    "distance": 1,
+    "tags": "sushi, curry, boba, ramen, tea, rice, pho, fried chicken, hot pot, Asian",
+    "image": "./images/glass.png",
+    "currentWT": "Average"
+  },
+  {
+    "name": "Taco Stand",
+    "wait": 28,
+    "distance": 3,
+    "tags": "Mexican, fast food, tacos, burritos, churros, fries, carne asada, chicken, pork, fish",
+    "image": "./images/taco.png",
+    "currentWT": "Not Busy"
+  },
+  {
+    "name": "Thai Kitchen",
+    "wait": 61,
+    "distance": 4,
+    "tags": "Thai, Asian, fast food, curry, rice, pad thai, noodles, tea, ramen, boba, chicken, pork, beef",
+    "image": "./images/ramen.png",
+    "currentWT": "Average"
+  },
+];
+
+var products = "",
+names = "",
+waits = "",
+distances = "";
+currentWTs = "";
+
+var reorder = function (key) {
+  // reset products
+  products = ""
+  key = key[key.selectedIndex].value
+  //console.log(key)
+
+  data = _.sortBy(data, [key])
+
+  for (var i = 0; i < data.length; i++) {
+    var name = data[i].name,
+    wait = data[i].wait,
+    distance = data[i].distance,
+    tags = data[i].tags,
+    image = data[i].image,
+    bar_class = "progress-bar-info",
+    // added code- sierra
+    currentWT = data[i].currentWT;
+    // don't change these values of 33 and 79 - sierra
+    if (wait > 33) bar_class = "progress-bar-warning";
+    if (wait > 79) bar_class = "progress-bar-danger";
+
+    // name, wait time, distance
+    var info = name.replace(" ", "_").replace("'", "") + "&" + String(wait) + "&" + String(distance) + "&" + tags + "&" + image
+    var resultLink = 'onClick="location.href=' + "'./specificResult.html?" + info +  "'" + ';" style="cursor: pointer;">'
+
+    //console.log(resultLink)
+
+    //create product cards
+    products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + tags + "' data-currentWT='" + currentWT + "'><div class='product-inner text-center'" + resultLink + "<img src='" + image + "' class='imgSize'><div class='rest-info'><b>" + name + "</b><br />" + '<div class="progress"><div class="progress-bar ' + bar_class
+    + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
+    + "" + distance + " miles<br /><div class=tags>Current Wait: <i>" + currentWT + "</i></div></div></div></div></a>";
+
+  }
+  // displays products on innerHTML
+  $("#products").html(products);
+}
+
+reorder(document.getElementById('slct'));
+
+var filtersObject = {};
+
+//on filter change
+$(".slct").on("change",function() {
+  reorder(document.getElementById('slct'));
+
+});
+
+//on search form submit
+$("#searchForm").submit(function(e) {
+  e.preventDefault();
+  $(".tm-welcome").hide()
+
+  var cur_filter = document.getElementById('slct').value[document.getElementById('slct').selectedIndex].value;
+
+  if (cur_filter == undefined) {
+    //$('#slct option:contains(' + "wait" + ')').prop({selected: true});
+    $("#slct").val('wait');
+    reorder(document.getElementById('slct'));
+  }
+
+  var query = $("#searchForm input").val().toLowerCase();
+
+  $(".product").hide();
+  $(".product").each(function() {
+    var name = $(this).data("name").toLowerCase(),
+    tags = $(this).data("tags").toLowerCase();
+
+    if (name.indexOf(query) > -1 || tags.indexOf(query) > -1) {
+      $(this).show();
+    }
+    // display text after user does a search - sierra
+    $("#SearchRes").html($("#searchForm input").val().charAt(0).toUpperCase() + $("#searchForm input").val().slice(1) + " Options:");
+  });
+
+});
+
+var newChange  = function (e) {
+  if(e != null) e.preventDefault();
+  reorder(document.getElementById('slct'));
+  var query = document.getElementById('searchText').value.toLowerCase();
+
+  if (query == "") {
+    $(".product").hide();
+  }
+  else {
+    $(".product").hide();
+    $(".product").each(function() {
+      var name = $(this).data("name").toLowerCase(),
+      tags= $(this).data("tags").toLowerCase();
+
+      if (name.indexOf(query) > -1 || tags.indexOf(query) > -1) {
+        $(this).show();
+      }
+    });
+  }
+}
+
+var getParams = function () {
+  var params = [];
+
+  if (document.URL.includes('?')) {
+    params = document.URL.split('?')
+            .pop()
+            .split('&');
+  }
+  return params;
+};
+
+var firstTime = true
+if(firstTime == true) {
+  params = getParams();
+  if (params.length == 0) {
+    $(".product").hide();
+  }
+  else if (params[0] == "distance") {
+    console.log("here")
+    $(".product").hide();
+    $('#slct option:contains(' + params[0] + ')').prop({selected: true});
+    reorder(document.getElementById('slct'));
+  }
+  else if (params[0] != "wait") {
+    console.log("there")
+    $(".product").hide();
+    $('#searchText').val(params[0]);
+    $('#searchButton').prop({selected: true});
+    newChange(null);
+  };
+  firstTime = false
+};
+
+</script>
+</body>
+</html>
