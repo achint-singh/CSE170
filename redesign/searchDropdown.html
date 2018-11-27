@@ -429,12 +429,12 @@ $(".slct").on("change",function() {
 $("#searchForm").submit(function(e) {
   e.preventDefault();
 
-  var cur_filter = document.getElementById('slct').value[document.getElementById('slct').selectedIndex].value;
 
-  if (cur_filter == undefined) {
+  if (firstSearch == true) {
     //$('#slct option:contains(' + "wait" + ')').prop({selected: true});
     $("#slct").val('wait');
     reorder(document.getElementById('slct'));
+    firstSearch = false
   }
 
   var query = $("#searchForm input").val().toLowerCase();
@@ -486,6 +486,7 @@ var getParams = function () {
 };
 
 var firstTime = true
+var firstSearch = true
 if(firstTime == true) {
   params = getParams();
   if (params.length == 0) {
@@ -500,7 +501,8 @@ if(firstTime == true) {
   else if (params[0] != "wait") {
     console.log("there")
     $(".product").hide();
-    $('#searchText').val(params[0]);
+    var cname = params[0].replace(/_/g, " ").replace("s ", "'s ").replace("%20", " ");
+    $('#searchText').val(cname);
     $('#searchButton').prop({selected: true});
     newChange(null);
   };

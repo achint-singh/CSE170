@@ -491,7 +491,8 @@ if(firstTime == true) {
   else if (params[0] != "wait") {
     console.log("there")
     $(".product").hide();
-    $('#searchText').val(params[0]);
+    var cname = params[0].replace(/_/g, " ").replace("s ", "'s ").replace("%20", " ");
+    $('#searchText').val(cname);
     $('#searchButton').prop({selected: true});
     newChange(null);
   };
