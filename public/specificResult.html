@@ -32,6 +32,16 @@
       height: 280px;
       padding: 8px;
     }
+    .smallImg{
+      width:55px;
+      height:55px;
+    }
+    .titleSize{
+      color:lightpink;
+      font-family: 'Oswald', sans-serif;
+      font-size:27px;
+
+    }
     .deliveryIcon{
       width: 70px;
       height: 90px;
@@ -49,6 +59,13 @@
     }
     .padding{
         padding-bottom:35px !important;
+    }
+    .smallPad{
+      padding-bottom:10px;
+    }
+    .title{
+      font-weight: bold;
+      font-size: 17px;
     }
   </style>
 
@@ -193,22 +210,21 @@
       avgWait = parseInt(Math.random() * 100);
       if (avgWait > 40) avgWait = parseInt(avgWait / 2);
 
-      resultCards += '<div class="row tm-about-row tm-mt-big tm-mb-medium">' +
-      '<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 tm-about-col-left">' +
-      '<div class="tm-v-center tm-bg-gray h-100 tm-about-text">' +
-      "<img src='" + image + "' class='imgSize'>" +
-      '<h2 class="tm-text-brown mb-4 tm-about-h2">' +
+      resultCards +=
+      '<div class="col-sm-12 tm-about-col-left">' +
+      '<div class="tm-v-center tm-bg-gray h-100 tm-about-text-small">' +
+      "<img src='" + image + "' class='smallImg'>" +
+      '<h2 class="titleSize">' +
       name +
       '</h2>' +
-      '<p class="tm-about-description mb-0">' +
-      '<h5> Description: </h5>' +
-      '<p>' + description + '</p>' +
-      '<h5> Average Wait Time: </h5>' +
-      '<div class="padding">' + avgWait + '</div>' +
-      '<h5> Current Expected Wait Time: </h5>' +
-      '<div class="padding">' +
+      '<div class="title"> Current Expected Wait Time: </div>' +
+      '<div class="smallPad">' +
       (wait) +
       ' minutes</div>' +
+      '<div class="title"> Average Wait Time: </div>' +
+      '<div class="smallPad">' + avgWait + ' minutes</div>'  + '<div class="title">' + name + ' Serves: </div>' +
+      '<p class="tm-about-description mb-0">' +
+      '<div>' + description + '</div>' +
       '</p></div></div></div>'
 
       $("#resultCards").html(resultCards);

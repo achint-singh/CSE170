@@ -27,7 +27,7 @@ a:hover, a:focus, a.active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:gainsboro;
+    background-color:#fffae8;
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -448,7 +448,10 @@ figure.effect-sadie:hover p {
     max-width: 560px;
     padding: 0 50px;
 }
-
+.tm-about-text-small{
+	max-width: 560px;
+	padding: 5px 45px;
+}
 .tm-about-description { line-height: 1.8; }
 
 .tm-media-2 {
