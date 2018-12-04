@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="css/fontawesome-all.min.css">                                      <!-- Font awesome -->
   <link rel="stylesheet" href="css/tooplate-style.css">                                           <!-- Templatemo style -->
   <link rel="stylesheet" href="css/nav.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Lobster" rel="stylesheet">
+
 
   <script>
     var renderPage = true;
@@ -30,6 +33,15 @@
       width: 280px;
       height: 280px;
       padding: 8px;
+    }
+    .smallImg{
+      width:55px;
+      height:55px;
+    }
+    .titleSize{
+      font-family: 'Oswald', sans-serif;
+      font-size:27px;
+
     }
     .deliveryIcon{
       width: 70px;
@@ -49,6 +61,13 @@
     .padding{
         padding-bottom:35px !important;
     }
+    .smallPad{
+      padding-bottom:10px;
+    }
+    .title{
+      font-weight: bold;
+      font-size: 16px;
+    }
   </style>
 
 </head>
@@ -57,7 +76,7 @@
 
   <header>
       <div class="tm-main">
-        <div class="tm-welcome-section"><a href="index.html" style="color:#97adc6"><strong>Waitz</strong></a></div>
+        <div class="tm-welcome-section"><a href="index.html" style="color:black; font-family: 'Lobster', sans-serif; padding-top: 10px;"><strong>Waitz</strong></a></div>
         <br>
         <form action="index.html" method="GET" id="searchForm">
           <img src="images/baseline_search_black_18dp.png">
@@ -118,17 +137,20 @@
               <a href="index.html">
                 <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#home">
                 <span class="invisible">Home</span></svg>
+                <h6 style="padding-left: 3px">Home</h6>
               </a>
             </li>
             <li>
               <a href="searchDropdown.html">
                 <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search">
                 <span class="invisible">Search</span></svg>
+                <h6>Search</h6>
               </a>
             </li>
             <li>
               <a href="about.html">
-                <i class="icon icon--2x fa fa-info" style="color:#97adc6" aria-hidden="true"></i>
+                <i class="icon icon--2x fa fa-info" style="color:black" aria-hidden="true"></i>
+                <h6>About</h6>
               </a>
             </li>
           </ul>
@@ -189,13 +211,14 @@
       avgWait = parseInt(Math.random() * 100);
       if (avgWait > 40) avgWait = parseInt(avgWait / 2);
 
-      resultCards += '<div class="row tm-about-row tm-mt-big tm-mb-medium">' +
-      '<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 tm-about-col-left">' +
-      '<div class="tm-v-center tm-bg-gray h-100 tm-about-text">' +
-      "<img src='" + image + "' class='imgSize'>" +
-      '<h2 class="tm-text-brown mb-4 tm-about-h2">' +
+      resultCards +=
+      '<div class="col-sm-12 tm-about-col-left">' +
+      '<div class="tm-v-center tm-bg-gray h-100 tm-about-text-small">' +
+      "<img src='" + image + "' class='smallImg'>" +
+      '<h2 class="titleSize">' +
       name +
       '</h2>' +
+<<<<<<< HEAD
       '<p class="tm-about-description mb-0">' +
       '<h5> Description: </h5>' +
       '<p>' + description + '</p>' +
@@ -203,8 +226,16 @@
       '<div class="padding">' + avgWait + " minutes" +'</div>' +
       '<h5> Current Expected Wait Time: </h5>' +
       '<div class="padding">' +
+=======
+      '<div class="title"> Current Expected Wait Time: </div>' +
+      '<div class="smallPad">' +
+>>>>>>> A8
       (wait) +
       ' minutes</div>' +
+      '<div class="title"> Average Wait Time: </div>' +
+      '<div class="smallPad">' + avgWait + ' minutes</div>'  + '<div class="title">' + name + ' Serves: </div>' +
+      '<p class="tm-about-description mb-0">' +
+      '<div>' + description + '</div>' +
       '</p></div></div></div>'
 
       $("#resultCards").html(resultCards);

@@ -27,9 +27,18 @@ input {
 }
 
 #nearby {
-    background-color: light-grey;
+    background-color: lightpink;
+    box-shadow: 5px 10px #888888;
 }
 
 #wait {
-    background-color: #97adc6;
+    background-color: lightblue;
+    box-shadow: 5px 10px #888888;
+}
+
+h6 {
+    color: black;
+    font-size: 9px;
+    padding-top: 5px;
+    font-family: 'Oswald', sans-serif;
 }

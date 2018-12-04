@@ -8,10 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Lobster" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
   <script type="../js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="css/style.css">
+  <!--<link rel="stylesheet" href="css/searchDropdown.css"> -->
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/5.5.7/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
@@ -44,6 +47,10 @@
   }
   select {
     display: flex;
+  }
+  #searchButton {
+    background-color: white;
+    box-shadow: 2px 2px #888888;
   }
   .progress-bar-danger {
     background-color: #d9534f !important;}
@@ -106,14 +113,14 @@
 	line-height:normal;
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
-	border-radius:2px;
+  border-radius:2px;
 }
 .ie8 .filter select{padding-right:3px}
 .filter select:focus {
 	background:#f9f9f9;
 	outline:none;
 	box-shadow:0 0 10px rgba(0, 0, 0, 0.3), inset 0 0 7px rgba(100,100,100,0.3);
-	border-color:#97adc6;
+	border-color: lightblue;
 }
 .filter ::-ms-expand {
  display:none;
@@ -127,7 +134,7 @@
 	margin-top:-3px;
 	height:0;
 	width:0;
-	border-top:6px solid #97adc6;
+	border-top:6px solid lightblue;
 	border-left:6px solid transparent;
 	border-right:6px solid transparent;
 	pointer-events:none;
@@ -150,6 +157,7 @@ label{display:block}
   <link rel="stylesheet" href="css/fontawesome-all.min.css">                                      <!-- Font awesome -->
   <link rel="stylesheet" href="css/tooplate-style.css">                                           <!-- Templatemo style -->
   <link rel="stylesheet" href="css/nav.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
   <script>
     var renderPage = true;
@@ -166,12 +174,12 @@ label{display:block}
 <body>
     <header>
         <div class="tm-main">
-          <div class="tm-welcome-section"><a href="index.html" style="color:#97adc6"><strong>Waitz</strong></a></div>
+          <div class="tm-welcome-section"><a href="index.html" style="color:black; font-family: 'Lobster', sans-serif; padding-top: 10px;"><strong>Waitz</strong></a></div>
           <br>
           <form action="index.html" method="GET" id="searchForm">
             <img src="images/baseline_search_black_18dp.png">
             <input type="text" name="keyword" placeholder="burger, salad, pasta..." id="searchText">
-            <input type="submit" value="Search" id="searchButton">
+            <input type="submit" value="Search" id="searchButton" style="font-family: 'Oswald', sans-serif;">
           </form>
           <hr>
         </div>
@@ -195,17 +203,20 @@ label{display:block}
               <a href="index.html">
                 <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#home">
                 <span class="invisible">Home</span></svg>
+                <h6 style="padding-left: 3px">Home</h6>
               </a>
             </li>
             <li>
               <a href="searchDropdown.html">
                 <svg class="icon icon--2x"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search">
                 <span class="invisible">Search</span></svg>
+                <h6>Search</h6>
               </a>
             </li>
             <li>
               <a href="about.html">
-                <i class="icon icon--2x fa fa-info" style="color:#97adc6" aria-hidden="true"></i>
+                <i class="icon icon--2x fa fa-info" style="color:black" aria-hidden="true"></i>
+                <h6>About</h6>
               </a>
             </li>
           </ul>
@@ -491,11 +502,15 @@ if(firstTime == true) {
   params = getParams();
   if (params.length == 0) {
     $(".product").hide();
+    $('#slct').val('wait');
+    reorder(document.getElementById('slct'));
+    $(".product").hide();
   }
   else if (params[0] == "distance") {
     console.log("here")
     $(".product").hide();
-    $('#slct option:contains(' + params[0] + ')').prop({selected: true});
+    //$('#slct option:contains(' + params[0] + ')').prop({selected: true});
+    $('#slct').val(params[0]);
     reorder(document.getElementById('slct'));
   }
   else if (params[0] != "wait") {
@@ -504,8 +519,14 @@ if(firstTime == true) {
     var cname = params[0].replace(/_/g, " ").replace("s ", "'s ").replace("%20", " ");
     $('#searchText').val(cname);
     $('#searchButton').prop({selected: true});
+    $('#slct').val("wait");
     newChange(null);
-  };
+  }
+  else {
+    $('#slct').val("wait");
+    reorder(document.getElementById('slct'));
+  }
+  ;
   firstTime = false
 };
 
