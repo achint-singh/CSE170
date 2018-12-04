@@ -14,7 +14,6 @@
   <script type="../js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="css/style.css">
-  <!--<link rel="stylesheet" href="css/searchDropdown.css"> -->
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/5.5.7/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
@@ -47,10 +46,6 @@
   }
   select {
     display: flex;
-  }
-  #searchButton {
-    background-color: white;
-    box-shadow: 2px 2px #888888;
   }
   .progress-bar-danger {
     background-color: #d9534f !important;}
@@ -492,15 +487,11 @@ if(firstTime == true) {
   params = getParams();
   if (params.length == 0) {
     $(".product").hide();
-    $('#slct').val('wait');
-    reorder(document.getElementById('slct'));
-    $(".product").hide();
   }
   else if (params[0] == "distance") {
     console.log("here")
     $(".product").hide();
-    //$('#slct option:contains(' + params[0] + ')').prop({selected: true});
-    $('#slct').val(params[0]);
+    $('#slct option:contains(' + params[0] + ')').prop({selected: true});
     reorder(document.getElementById('slct'));
   }
   else if (params[0] != "wait") {
@@ -509,14 +500,8 @@ if(firstTime == true) {
     var cname = params[0].replace(/_/g, " ").replace("s ", "'s ").replace("%20", " ");
     $('#searchText').val(cname);
     $('#searchButton').prop({selected: true});
-    $('#slct').val("wait");
     newChange(null);
-  }
-  else {
-    $('#slct').val("wait");
-    reorder(document.getElementById('slct'));
-  }
-  ;
+  };
   firstTime = false
 };
 

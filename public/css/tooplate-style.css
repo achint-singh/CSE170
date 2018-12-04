@@ -489,9 +489,8 @@ figure.effect-sadie:hover p {
 
 .nav-tabs .nav-link {
     border-radius: 0;
+    border: none;
     color: #666666;
-		border: none;
-		box-shadow: 0 0 10px rgba(0,0,0,.2);
 }
 
 .nav-tabs { border-bottom: 0; }
@@ -908,8 +907,7 @@ iframe { max-width: 100%; }
 }
 
 #searchButton {
-  	background-color: #E8E4C8;
-  	box-shadow: 2px 2px #888888;
+    background-color: lightpink;
     border: none;
     padding: 10px;
 }
