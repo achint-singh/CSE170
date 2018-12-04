@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  
+
 }
 
 /* layout/base.css */
@@ -44,7 +44,7 @@ a {
 /* modules/icon.css */
 
 :root {
-  --icon-fill-color: #97adc6;
+  --icon-fill-color: black;
 }
 
 .icons {
@@ -88,7 +88,10 @@ svg {
 
 .navigation a {
   display: block;
-  padding: 1.5rem;
+  padding-top: 1.0rem;
+  padding-left: 2.0rem;
+  padding-right: 2.0rem;
+  padding-bottom: 0.5rem;
   position: relative;
   text-decoration: none;
 }
@@ -115,14 +118,15 @@ svg {
 }
 
 footer {
-    background-color: #f3e5f5;
+    background-color:#fffae8;
     bottom: 0;
     width: 100%;
     position: fixed;
 }
 
 #heading {
-  padding-top: 75px;
+  padding-top: 50px;
+  padding-bottom: 20px;
   color: grey;
 }
 
@@ -138,4 +142,11 @@ footer {
   padding: 20px;
   font-size: 30px;
   text-align: center;
+}
+
+h6 {
+  color: black;
+  font-size: 9px;
+  padding-top: 5px;
+  font-family: 'Oswald', sans-serif;
 }
