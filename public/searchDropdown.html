@@ -460,7 +460,7 @@ var newChange  = function (e) {
   reorder(document.getElementById('slct'));
   var query = document.getElementById('searchText').value.toLowerCase();
 
-  if (query == "") {
+  if (query == "" && params.length == 0) {
     $(".product").hide();
   }
   else {
