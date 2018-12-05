@@ -397,8 +397,14 @@ data = [
 var products = "",
 names = "",
 waits = "",
-distances = "";
+distances = "",
 currentWTs = "";
+
+var waitDict = {
+  "Not Busy": 33,
+  "Average": 66,
+  "Extremely Busy": 95
+};
 
 var reorder = function (key) {
   // reset products
@@ -428,10 +434,20 @@ var reorder = function (key) {
     //console.log(resultLink)
 
     //create product cards
-    products += "<div class='col-sm-4 product' data-name='" + name + "' data-wait='" + wait + "' data-distance='" + distance + "' data-tags='" + tags + "' data-currentWT='" + currentWT + "'><div class='product-inner text-center'" + resultLink + "<img src='" + image + "' class='imgSize'><div class='rest-info'><b>" + name + "</b><br />" + '<div class="progress"><div class="progress-bar ' + bar_class
-    + '" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:70%"><span class="sr-only">70% Complete</span></div></div>'
-    + "" + distance + " miles<br /><div class=tags>Current Wait: <i>" + currentWT + "</i></div></div></div></div></a>";
-
+    products += "<div class='col-sm-4 product' data-name='" +
+    name + "' data-wait='" + wait + "' data-distance='" +
+    distance + "' data-tags='" +
+    tags + "' data-currentWT='" +
+    currentWT + "'><div class='product-inner text-center'" +
+    resultLink + "<img src='" +
+    image + "' class='imgSize'><div class='rest-info'><b>" +
+    name + "</b><br />" + '<div class="progress"><div class="progress-bar ' +
+    bar_class + '" role="progressbar" aria-valuenow="' +
+    waitDict[currentWT] + '"aria-valuemin="0" aria-valuemax="100" style="width:' +
+    waitDict[currentWT] + '%"><span class="sr-only">' +
+    waitDict[currentWT] + '% Complete</span></div></div>' + "" +
+    distance + " miles<br /><div class=tags>Current Wait: <i>" +
+    currentWT + "</i></div></div></div></div></a>";
   }
   // displays products on innerHTML
   $("#products").html(products);
